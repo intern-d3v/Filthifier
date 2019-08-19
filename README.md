@@ -4,7 +4,9 @@ A python tool to generate a virtual machine with random vulnerabilities based of
 
 ## Terms and Definitions
 	Vulnerability - a security flaw which serves as a weakness to an operating system, typically in the form of a misconfiguration.
+
 	Service - a application or process which runs in the background to provide or execute essential tasks when called. Examples: apache2, sshd, telnetd
+
 	Category - a generalized description which describes a group of vulnerabilities. All vulnerabilities have a category. The categories are the following:
 		- userAudit: vulnerabilities consisting of unauthorized users, admins, or user configurations
 		- unauthorizedSoftware: software and programs that pose a security weakness or have malicious potential
@@ -14,7 +16,7 @@ A python tool to generate a virtual machine with random vulnerabilities based of
 		- kernelAudit: kernel security vulnerabilities
 		
 ## Configuring
-VulnSet relies on three primary configurations:
+The Filthifier relies on three primary configurations:
 - prefs.json
 - vulnerabilities/
 - config.json
