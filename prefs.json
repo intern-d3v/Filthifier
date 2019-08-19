@@ -1,0 +1,7 @@
+{
+	"config":{
+		"os":"ubuntu",
+		"difficulty":"medium",
+		"services":["sshd","apache2"]
+	}
+}

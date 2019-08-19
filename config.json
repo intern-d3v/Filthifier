@@ -1,0 +1,75 @@
+{
+	"config":{
+                "validDifficulties": {
+			"easy": {
+				"minUsers":8,
+				"maxUsers":12,
+				"minbound":12,
+				"maxbound":18,
+                                "categoryWeights": {
+                                	"userAudit": 0.20,
+					"loginPolicy": 0.22,
+					"securityAudit": 0.30,
+					"services": 0.18,
+					"updates": 0.0,
+					"unauthorizedSoftware": 0.1,
+					"kernelAudit": 0.00
+				},
+                                "difficultyWeight": {
+					"easy": 1,
+					"medium": 0,
+					"hard": 0
+				}
+			},
+			"medium": {
+				"minUsers":8,
+				"maxUsers":12,
+				"minbound":21,
+				"maxbound":28,
+				"categoryWeights": {
+                                	"userAudit": 0.19,
+					"loginPolicy": 0.1,
+					"securityAudit": 0.34,
+					"services": 0.1,
+					"updates": 0.0,
+					"unauthorizedSoftware": 0.2,
+					"kernelAudit": 0.07
+				},
+                                "difficultyWeight": {
+					"easy": 0.35,
+					"medium":0.6,
+					"hard": 0.05
+				}
+			},
+			"hard": {
+				"minbound":30,
+				"minUsers":8,
+				"maxUsers":12,
+				"maxbound":40,
+                                "categoryWeights": {
+                                	"userAudit": 0.15,
+					"loginPolicy": 0.17,
+					"securityAudit": 0.22,
+					"services": 0.22,
+					"updates": 0.0,
+					"unauthorizedSoftware": 0.16,
+					"kernelAudit": 0.08
+				},
+                                "difficultyWeight": {
+					"easy": 0.2,
+					"medium": 0.3,
+					"hard": 0.5
+				}
+			}
+		},
+		"validServices":["ssh"],
+                "validDiffs":["easy","medium","hard"],
+		"validDistros": [
+			"ubuntu"
+		],
+
+		"os":"ubuntu",
+		"difficulty":"medium",
+		"services":["ssh","apache2"]
+ }
+}
