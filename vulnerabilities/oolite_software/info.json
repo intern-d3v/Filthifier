@@ -1,0 +1,9 @@
+{
+
+	"name": "oolite_software",
+	"stig_id" : "",
+	"description": "Gaming software oolite removed",
+	"type": "unauthorizedSoftware",
+	"difficulty": "easy"
+
+}

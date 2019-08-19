@@ -1,0 +1,9 @@
+{
+
+	"name": "syn_protection",
+	"stig_id" : "",
+	"description": "TCP SYN protection enabled",
+	"type": "kernelAudit",
+	"difficulty": "medium"
+
+}

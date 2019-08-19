@@ -1,0 +1,9 @@
+{
+
+	"name": "ssh_empty_passwords",
+	"stig_id" : "",
+	"description": "Empty passwords prohibted for SSH",
+	"type": "sshd",
+	"difficulty": "medium"
+
+}

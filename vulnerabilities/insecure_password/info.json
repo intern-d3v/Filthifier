@@ -1,0 +1,9 @@
+{
+
+	"name": "insecure_password",
+	"stig_id" : "",
+	"description": "Insecure password for {anyUser} changed",
+	"type": "userAudit",
+	"difficulty": "easy"
+
+}

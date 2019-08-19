@@ -1,0 +1,9 @@
+{
+
+	"name": "media_files",
+	"stig_id" : "",
+	"description": "Unauthorized media files have removed",
+	"type": "securityAudit",
+	"difficulty": "easy"
+
+}

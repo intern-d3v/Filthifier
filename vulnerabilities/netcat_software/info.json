@@ -1,0 +1,9 @@
+{
+
+	"name": "netcat_software",
+	"stig_id" : "",
+	"description": "Generic hacking tool netcat removed",
+	"type": "unauthorizedSoftware",
+	"difficulty": "easy"
+
+}

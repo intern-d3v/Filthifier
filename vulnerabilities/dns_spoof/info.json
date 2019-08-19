@@ -1,0 +1,9 @@
+{
+
+	"name": "dns_spoof",
+	"stig_id" : "",
+	"description": "DNS spoof protection has been enabled",
+	"type": "securityAudit",
+	"difficulty": "medium"
+
+}

@@ -1,0 +1,9 @@
+{
+
+	"name": "ssh_strict_mode",
+	"stig_id" : "",
+	"description": "Strict mode is enabled for ssh",
+	"type": "sshd",
+	"difficulty": "medium"
+
+}

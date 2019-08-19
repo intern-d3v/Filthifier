@@ -1,0 +1,9 @@
+{
+
+	"name": "insecure_sudo_config",
+	"stig_id" : "",
+	"description": "Insecue sudo configuration fixed ",
+	"type": "securityAudit",
+	"difficulty": "medium"
+
+}

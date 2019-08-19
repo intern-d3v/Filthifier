@@ -1,0 +1,9 @@
+{
+
+	"name": "hashcat_software",
+	"stig_id" : "",
+	"description": "Password cracking tool hashcat removed",
+	"type": "unauthorizedSoftware",
+	"difficulty": "hard"
+
+}

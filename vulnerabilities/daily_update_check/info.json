@@ -1,0 +1,9 @@
+{
+
+	"name": "daily_update_check",
+	"stig_id" : "",
+	"description": "System checks for updates daily",
+	"type": "securityAudit",
+	"difficulty": "easy"
+
+}

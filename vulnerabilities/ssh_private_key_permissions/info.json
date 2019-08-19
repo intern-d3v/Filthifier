@@ -1,0 +1,9 @@
+{
+
+	"name": "ssh_private_key_permissions",
+	"stig_id" : "",
+	"description": "Private keys for SSH secured",
+	"type": "sshd",
+	"difficulty": "hard"
+
+}

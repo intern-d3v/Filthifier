@@ -1,0 +1,9 @@
+{
+
+	"name": "ssh_protocol2",
+	"stig_id" : "",
+	"description": "Protocol 2 enabled for SSH",
+	"type": "sshd",
+	"difficulty": "hard"
+
+}

@@ -1,0 +1,9 @@
+{
+
+	"name": "profile_persmisions",
+	"stig_id" : "",
+	"description": "Secure permissions are enabled for /etc/profile",
+	"type": "securityAudit",
+	"difficulty": "hard"
+
+}

@@ -1,0 +1,9 @@
+{
+
+	"name": "ssh_root_login",
+	"stig_id" : "",
+	"description": "SSH Root login disabled",
+	"type": "sshd",
+	"difficulty": "easy"
+
+}

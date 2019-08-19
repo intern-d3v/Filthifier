@@ -1,0 +1,9 @@
+{
+
+	"name": "domain_redirection",
+	"stig_id" : "",
+	"description": "Malicious domain redirection removed",
+	"type": "securityAudit",
+	"difficulty": "hard"
+
+}

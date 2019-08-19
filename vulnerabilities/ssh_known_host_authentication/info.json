@@ -1,0 +1,9 @@
+{
+
+	"name": "ssh_known_host_authentication",
+	"stig_id" : "",
+	"description": "SSH does not allow authentication using known hosts",
+	"type": "sshd",
+	"difficulty": "hard"
+
+}

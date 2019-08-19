@@ -1,0 +1,9 @@
+{
+
+	"name": "mysql_evil_user",
+	"stig_id" : "",
+	"description": "Unauthorized Mysql user removed",
+	"type": "mysql",
+	"difficulty": "medium"
+
+}

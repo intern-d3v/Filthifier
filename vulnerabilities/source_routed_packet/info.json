@@ -1,0 +1,9 @@
+{
+
+	"name": "source_routed_packet",
+	"stig_id" : "",
+	"description": "Netfilter denies source routed packets",
+	"type": "kernelAudit",
+	"difficulty": "hard"
+
+}

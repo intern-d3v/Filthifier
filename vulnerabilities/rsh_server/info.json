@@ -1,0 +1,9 @@
+{
+
+	"name": "rsh_server",
+	"stig_id" : "",
+	"description": "The rsh-server package is no longer installed",
+	"type": "securityAudit",
+	"difficulty": "medium"
+
+}

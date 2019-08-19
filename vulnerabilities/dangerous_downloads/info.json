@@ -1,0 +1,9 @@
+{
+
+	"name": "dangerous_downloads",
+	"stig_id" : "",
+	"description": "Firefox blocks dangerous downloads",
+	"type": "securityAudit",
+	"difficulty": "medium"
+
+}

@@ -1,0 +1,9 @@
+{
+
+	"name": "nmap_software",
+	"stig_id" : "",
+	"description": "Port scanning software nmap removed",
+	"type": "unauthorizedSoftware",
+	"difficulty": "easy"
+
+}

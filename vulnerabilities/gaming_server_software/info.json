@@ -1,0 +1,9 @@
+{
+
+	"name": "gaming_server_software",
+	"stig_id" : "",
+	"description": "Gaming server Freeciv removed",
+	"type": "unauthorizedSoftware",
+	"difficulty": "medium"
+
+}

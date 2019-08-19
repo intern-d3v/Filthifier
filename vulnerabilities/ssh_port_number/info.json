@@ -1,0 +1,9 @@
+{
+
+	"name": "ssh_port_number",
+	"stig_id" : "",
+	"description": "SSH runs on port 22",
+	"type": "sshd",
+	"difficulty": "medium"
+
+}

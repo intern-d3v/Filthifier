@@ -1,0 +1,9 @@
+{
+
+	"name": "mysql_remote_access",
+	"stig_id" : "",
+	"description": "Mysql remote access is disabled",
+	"type": "mysql",
+	"difficulty": "easy"
+
+}

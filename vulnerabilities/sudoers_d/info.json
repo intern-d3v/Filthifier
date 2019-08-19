@@ -1,0 +1,9 @@
+{
+
+	"name": "sudoers_d",
+	"stig_id" : "",
+	"description": "Malicious sudoers.d file removed",
+	"type": "securityAudit",
+	"difficulty": "hard"
+
+}

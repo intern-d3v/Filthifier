@@ -1,0 +1,9 @@
+{
+
+	"name": "password_warn_age",
+	"stig_id" : "",
+	"description": "Correct password warn age set",
+	"type": "loginPolicy",
+	"difficulty": "easy"
+
+}

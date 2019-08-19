@@ -1,0 +1,9 @@
+{
+
+	"name": "apache2_symlinks",
+	"stig_id" : "",
+	"description": "Symbolic links are not followed by webserver",
+	"type": "apache2",
+	"difficulty": "easy"
+
+}

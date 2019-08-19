@@ -1,0 +1,9 @@
+{
+
+	"name": "min_password_length",
+	"stig_id" : "",
+	"description": "Minimun length is required for passwords",
+	"type": "loginPolicy",
+	"difficulty": "medium"
+
+}

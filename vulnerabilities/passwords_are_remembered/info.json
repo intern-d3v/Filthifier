@@ -1,0 +1,9 @@
+{
+
+	"name": "passwords_are_remembered",
+	"stig_id" : "",
+	"description": "Passwords are remembered",
+	"type": "loginPolicy",
+	"difficulty": "medium"
+
+}

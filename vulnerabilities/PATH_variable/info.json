@@ -1,0 +1,9 @@
+{
+
+	"name": "PATH_variable",
+	"stig_id" : "",
+	"description": "The PATH variable is secured",
+	"type": "securityAudit",
+	"difficulty": "hard"
+
+}

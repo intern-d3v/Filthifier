@@ -1,0 +1,9 @@
+{
+
+	"name": "direct_root_login",
+	"stig_id" : "V-75445",
+	"description": "Direct login to root account has been disabled",
+	"type": "loginPolicy",
+	"difficulty": "hard"
+
+}

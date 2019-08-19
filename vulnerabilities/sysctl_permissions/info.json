@@ -1,0 +1,9 @@
+{
+
+	"name": "sysctl_permissions",
+	"stig_id" : "",
+	"description": "Secure permissions are enabled for /etc/sysctl.conf",
+	"type": "securityAudit",
+	"difficulty": "hard"
+
+}

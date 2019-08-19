@@ -1,0 +1,9 @@
+{
+
+	"name": "firewall_enabled",
+	"stig_id" : "",
+	"description": "UFW (Uncomplicated Firewall) has been enabled",
+	"type": "securityAudit",
+	"difficulty": "easy"
+
+}

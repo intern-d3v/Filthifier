@@ -1,0 +1,9 @@
+{
+
+	"name": "apache2_evil_website",
+	"stig_id" : "",
+	"description": "Unauthorized website disabled",
+	"type": "apache2",
+	"difficulty": "hard"
+
+}

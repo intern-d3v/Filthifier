@@ -1,0 +1,9 @@
+{
+
+	"name": "login_restrictions_set",
+	"stig_id" : "",
+	"description": "Failed login restrictions set",
+	"type": "loginPolicy",
+	"difficulty": "medium"
+
+}

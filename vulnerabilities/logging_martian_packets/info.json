@@ -1,0 +1,9 @@
+{
+
+	"name": "logging_martian_packets",
+	"stig_id" : "",
+	"description": "Martian packets are logged",
+	"type": "kernelAudit",
+	"difficulty": "hard"
+
+}

@@ -1,0 +1,9 @@
+{
+
+	"name": "evil_adm",
+	"stig_id" : "",
+	"description": "Unauthorized admin {randomUser} removed",
+	"type": "userAudit",
+	"difficulty": "easy"
+
+}

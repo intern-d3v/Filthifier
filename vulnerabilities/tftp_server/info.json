@@ -1,0 +1,9 @@
+{
+
+	"name": "tftp_server",
+	"stig_id" : "",
+	"description": "Trivial File Transfer Protocol server is no longer installed",
+	"type": "securityAudit",
+	"difficulty": "medium"
+
+}

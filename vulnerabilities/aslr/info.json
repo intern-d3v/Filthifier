@@ -1,0 +1,9 @@
+{
+
+	"name": "aslr",
+	"stig_id" : "V-75821",
+	"description": "ASLR randomizaion enabled",
+	"type": "kernelAudit",
+	"difficulty": "hard"
+	
+}

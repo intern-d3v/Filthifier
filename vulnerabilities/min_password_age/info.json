@@ -1,0 +1,9 @@
+{
+
+	"name": "min_password_age",
+	"stig_id" : "",
+	"description": "Correct minimum password age set",
+	"type": "loginPolicy",
+	"difficulty": "easy"
+
+}

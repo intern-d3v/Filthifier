@@ -1,0 +1,9 @@
+{
+
+	"name": "hidden_user",
+	"stig_id" : "V-75549",
+	"description": "Hidden root  user removed",
+	"type": "userAudit",
+	"difficulty": "hard"
+
+}

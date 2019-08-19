@@ -1,0 +1,9 @@
+{
+
+	"name": "max_password_age",
+	"stig_id" : "",
+	"description": "Correct maximum password age set",
+	"type": "loginPolicy",
+	"difficulty": "easy"
+
+}

@@ -1,0 +1,9 @@
+{
+
+	"name": "icmp_redirects",
+	"stig_id" : "V-75883",
+	"description": "ICMP redirects are not accepted",
+	"type": "kernelAudit",
+	"difficulty": "hard"
+
+}

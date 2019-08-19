@@ -1,0 +1,9 @@
+{
+
+	"name": "shared_memory",
+	"stig_id" : "",
+	"description": "Stricter defaults are enabled for shared memory",
+	"type": "securityAudit",
+	"difficulty": "hard"
+
+}

@@ -1,0 +1,9 @@
+{
+
+	"name": "hydra_software",
+	"stig_id" : "",
+	"description": "Password cracking tool hydra removed",
+	"type": "unauthorizedSoftware",
+	"difficulty": "medium"
+
+}

@@ -1,0 +1,9 @@
+{
+
+	"name": "sticky_bits",
+	"stig_id" : "",
+	"description": "A sticky bit is set on the /tmp directory",
+	"type": "securityAudit",
+	"difficulty": "hard"
+
+}

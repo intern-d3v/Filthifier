@@ -1,0 +1,9 @@
+{
+
+	"name": "ssh_shost_files",
+	"stig_id" : "",
+	"description": ".shost file removed",
+	"type": "sshd",
+	"difficulty": "hard"
+
+}

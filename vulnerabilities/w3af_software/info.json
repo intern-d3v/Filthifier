@@ -1,0 +1,9 @@
+{
+
+	"name": "yersiana_software",
+	"stig_id" : "",
+	"description": "Network hacking tool yersiana removed",
+	"type": "unauthorizedSoftware",
+	"difficulty": "hard"
+
+}

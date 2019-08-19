@@ -1,0 +1,9 @@
+{
+
+	"name": "secure_hashing_algo",
+	"stig_id" : "",
+	"description": "Secure hashing algorithm utilized",
+	"type": "loginPolicy",
+	"difficulty": "hard"
+
+}

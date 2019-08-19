@@ -1,0 +1,9 @@
+{
+
+	"name": "nikto_software",
+	"stig_id" : "",
+	"description": "Network vulnerabilty scanner nikto removed",
+	"type": "unauthorizedSoftware",
+	"difficulty": "medium"
+
+}

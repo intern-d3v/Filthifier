@@ -1,0 +1,9 @@
+{
+
+	"name": "password_complexity",
+	"stig_id" : "",
+	"description": "Password complexity enforced",
+	"type": "loginPolicy",
+	"difficulty": "medium"
+
+}

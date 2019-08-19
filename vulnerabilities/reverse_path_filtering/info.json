@@ -1,0 +1,9 @@
+{
+
+	"name": "reverse_path_filtering",
+	"stig_id" : "",
+	"description": "Reverse path filtering enabled",
+	"type": "kernelAudit",
+	"difficulty": "hard"
+
+}

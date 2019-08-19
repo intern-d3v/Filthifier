@@ -1,0 +1,9 @@
+{
+
+	"name": "duplicate_UID",
+	"stig_id" : "V-75547",
+	"description": "Duplicate UIDs have been corrected",
+	"type": "userAudit",
+	"difficulty": "hard"
+
+}

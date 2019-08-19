@@ -1,0 +1,9 @@
+{
+
+	"name": "promiscuos_networking_mode",
+	"stig_id" : "",
+	"description": "Promiscuous networking mode disabled",
+	"type": "kernelAudit",
+	"difficulty": "hard"
+
+}

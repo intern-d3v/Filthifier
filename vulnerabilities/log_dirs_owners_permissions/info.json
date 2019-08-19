@@ -1,0 +1,9 @@
+{
+
+	"name": "log_dirs_owners_permissions",
+	"stig_id" : "V-75599",
+	"description": "System log files have the appropriate owner and permissions",
+	"type": "securityAudit",
+	"difficulty": "hard"
+
+}

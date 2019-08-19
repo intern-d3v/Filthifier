@@ -1,0 +1,9 @@
+{
+
+	"name": "shadow_permissions",
+	"stig_id" : "",
+	"description": "Secure are permissions set for shadow ",
+	"type": "securityAudit",
+	"difficulty": "hard"
+
+}

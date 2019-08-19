@@ -1,0 +1,9 @@
+{
+
+	"name": "fork_bomb_protection",
+	"stig_id" : "",
+	"description": "Protection enabled against memory based denial of service attack",
+	"type": "securityAudit",
+	"difficulty": "medium"
+
+}

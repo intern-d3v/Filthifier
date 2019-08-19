@@ -1,0 +1,9 @@
+{
+
+	"name": "apache2_fingerprinting",
+	"stig_id" : "",
+	"description": "Protection enacted against webserver fingerprinting",
+	"type": "apache2",
+	"difficulty": "medium"
+
+}

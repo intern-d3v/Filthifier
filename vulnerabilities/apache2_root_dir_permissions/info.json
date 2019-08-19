@@ -1,0 +1,9 @@
+{
+
+	"name": "apache2_root_dir_permissions",
+	"stig_id" : "",
+	"description": "Secure permissions enacted on webserver root directory",
+	"type": "apache2",
+	"difficulty": "medium"
+
+}

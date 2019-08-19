@@ -1,0 +1,9 @@
+{
+
+	"name": "apache2_override_function",
+	"stig_id" : "",
+	"description": "Webserver Override function disabled",
+	"type": "apache2",
+	"difficulty": "medium"
+
+}

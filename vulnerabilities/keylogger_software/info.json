@@ -1,0 +1,9 @@
+{
+
+	"name": "keylogger_software",
+	"stig_id" : "",
+	"description": "Keylogger logkeys has been removed",
+	"type": "unauthorizedSoftware",
+	"difficulty": "easy"
+
+}

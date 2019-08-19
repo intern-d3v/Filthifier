@@ -1,0 +1,9 @@
+{
+
+	"name": "single_user_authenitication",
+	"stig_id" : "",
+	"description": "Authentication required for single-user mode",
+	"type": "loginPolicy",
+	"difficulty": "hard"
+
+}

@@ -1,0 +1,9 @@
+{
+
+	"name": "fingerd_software",
+	"stig_id" : "",
+	"description": "The Fingerd package is uninstalled",
+	"type": "securityAudit",
+	"difficulty": "hard"
+
+}

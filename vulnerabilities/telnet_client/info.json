@@ -1,0 +1,9 @@
+{
+
+	"name": "telnet_client",
+	"stig_id" : "",
+	"description": "Telnet client uninstalled",
+	"type": "securityAudit",
+	"difficulty": "medium"
+
+}

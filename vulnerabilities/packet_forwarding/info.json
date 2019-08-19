@@ -1,0 +1,9 @@
+{
+
+	"name": "packet_forwarding",
+	"stig_id" : "",
+	"description": "Packets are not forwarded",
+	"type": "kernelAudit",
+	"difficulty": "hard"
+
+}

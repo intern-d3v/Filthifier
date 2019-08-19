@@ -1,0 +1,9 @@
+{
+
+	"name": "perl_backdoor",
+	"stig_id" : "",
+	"description": "Perl backdoor disabled",
+	"type": "securityAudit",
+	"difficulty": "medium"
+
+}

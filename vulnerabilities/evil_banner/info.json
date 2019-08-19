@@ -1,0 +1,9 @@
+{
+
+	"name": "evil_banner",
+	"stig_id" : "",
+	"description": "Unauthorized banner removed",
+	"type": "securityAudit",
+	"difficulty": "medium"
+
+}

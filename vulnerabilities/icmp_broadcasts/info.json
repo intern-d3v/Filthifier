@@ -1,0 +1,9 @@
+{
+
+	"name": "icmp_broadcasts",
+	"stig_id" : "V-75877",
+	"description": "Kernel ignores ICMP broadcasts",
+	"type": "kernelAudit",
+	"difficulty": "medium"
+
+}

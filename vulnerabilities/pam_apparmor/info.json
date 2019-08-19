@@ -1,0 +1,9 @@
+{
+
+	"name": "pam_apparmor",
+	"stig_id" : "",
+	"description": "Pam-apparmor is configured",
+	"type": "loginPolicy",
+	"difficulty": "hard"
+
+}

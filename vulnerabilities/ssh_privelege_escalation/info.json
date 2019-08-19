@@ -1,0 +1,9 @@
+{
+
+	"name": "ssh_privelege_escalation",
+	"stig_id" : "",
+	"description": "SSH is hardened against privelege escalation",
+	"type": "sshd",
+	"difficulty": "hard"
+
+}

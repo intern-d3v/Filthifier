@@ -1,0 +1,9 @@
+{
+
+	"name": "guest_acct",
+	"stig_id" : "",
+	"description": "Guest account is disabled",
+	"type": "userAudit",
+	"difficulty": "easy"
+
+}

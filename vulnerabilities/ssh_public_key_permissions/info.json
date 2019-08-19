@@ -1,0 +1,9 @@
+{
+
+	"name": "ssh_public_key_permissions",
+	"stig_id" : "",
+	"description": "SSH public host key files have been given secure permissions",
+	"type": "sshd",
+	"difficulty": "hard"
+
+}

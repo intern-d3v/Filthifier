@@ -1,0 +1,9 @@
+{
+
+	"name": "netcat_backdoor",
+	"stig_id" : "",
+	"description": "Netcat backdoor disabled",
+	"type": "securityAudit",
+	"difficulty": "easy"
+
+}

@@ -1,0 +1,9 @@
+{
+
+	"name": "apache2_dir_listing",
+	"stig_id" : "",
+	"description": "Directory listing disabled for webserver",
+	"type": "apache2",
+	"difficulty": "easy"
+
+}
