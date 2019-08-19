@@ -2,6 +2,7 @@
 	"config":{
 		"os":"ubuntu",
 		"difficulty":"medium",
-		"services":["sshd","apache2"]
+		"services":["sshd","apache2"],
+		"vulnerabilities": "random"
 	}
 }

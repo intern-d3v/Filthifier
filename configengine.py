@@ -13,6 +13,7 @@ class ConfigEngine():
 		selection=self.prefConfig['config']['difficulty']
 		if selection=="*":
 			selection=random.choice(self.masterConfig['config']['validDifficulties'].keys())
+		self.reqVulns=self.prefConfig['config']['vulnerabilities']
 		self.difficulty=selection
 		self.numVulns=random.randint(self.getDiffConfig()['minbound'],self.getDiffConfig()['maxbound'])
 		self.distro=self.masterConfig['config']['os']
@@ -83,6 +84,8 @@ class ConfigEngine():
 			info=json.loads(open("services/"+subdirectory+"/info.json").read())
 			self.vulnerabilities[info["type"]][info["difficulty"]][info["name"]]=info["name"]
 
+	def getVulnerability(self):
+		return self.reqVulns
 
 	def getDistro(self):
 		return self.distro

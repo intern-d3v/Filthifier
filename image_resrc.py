@@ -75,8 +75,10 @@ class Image(): #a virtual machine image
       self.initFile="build/initfile.bash"
       self.booleanFile="build/scoreconfig.bash"
       self.dependencies=[]
-
-      self.initAll()
+      if "random" in self.engine.getVulnerability():
+         self.initAllRandom()
+      else:
+         self.initImage()
       self.scenario="""
 
 <Insert Default Scenario Template Here>
@@ -85,18 +87,31 @@ Required Services:
 {services}
 
 Authorized Admins:
+(you) {mainUser}
 {admins}
 
 Authorized Users:
 {users}
 """
 
-   def initAll(self):
+
+   def initImage(self):
+      vulns=self.engine.getVulnerability()
+      for i in vulns:
+         tmp=Insertion(i)
+         self.insertions.append(tmp)
+         self.dependencies.append(tmp.dependencies)
+      self.initUsers()
+      self.initServices()
+#      self.initDependencies()
+
+   def initAllRandom(self):
       self.initUsers()
       self.initServices()
       self.initServiceVulns()
       self.initCategoryVulns()
       self.initDependencies()
+
    def initCategoryVulns(self):
       weights=self.engine.getCatWeights()
       weights.pop('services')
@@ -106,21 +121,24 @@ Authorized Users:
            #print i,j
             if self.engine.getVulnCountForCategory(i,j)>0:
                #print self.engine.getVulnCountForCategory(i,j)
-               if i!="userAudit":
-                  for k in self.engine.getRandVulns(i,j,self.engine.getVulnCountForCategory(i,j)):
-                     tmp=Insertion(k)
-                     self.dependencies.append(tmp.dependencies)
-                     self.insertions.append(tmp)
-               else:
-                  for k in self.engine.getRandUserVulns(j,self.engine.getVulnCountForCategory(i,j)):
-                     if "%s" in k:
-                        u=random.choice(tempUsers)
-                        tempUsers.remove(u)
-                        conf=[user % u.username for user in k]
-                        self.insertions.append(Insertion(conf))
-                     else:
-                        self.insertions.append(Insertion(k))
-
+               for k in self.engine.getRandVulns(i,j,self.engine.getVulnCountForCategory(i,j)):
+                  if any("{randomUser}" in l for l in k):
+                     print k
+                     u=random.choice(tempUsers)
+                     tempUsers.remove(u)
+                     context={"randomUser":u.username}
+                     k=[line.format(**context) for line in k]
+                  if any("{mainUser}" in l for l in k):
+                     print k
+                     k=[line.format(**{"mainUser":self.mainUser}) for line in k]
+                  if any("{randomUsername}" in l for l in k):
+                     print k
+                     name=random.choice(self.wordlist)
+                     self.wordlist.remove(name)
+                     k=[line.format(**{"randomUsername":name}) for line in k]
+                  tmp=Insertion(k)
+                  self.insertions.append(tmp)
+                  self.dependencies.append(tmp.dependencies)
    def initDependencies(self):
       #filelist = [ f for f in os.listdir("./archive/") ]
       #for f in filelist:
@@ -138,19 +156,19 @@ Authorized Users:
                   self.insertions.append(Insertion(k))
 
    def initUsers(self):
-      wordlist=[line.rstrip('\n') for line in open('names.txt')]
+      self.wordlist=[line.rstrip('\n') for line in open('names.txt')]
       characters=string.ascii_letters+string.digits
       for i in range(int(round(self.engine.getUserCount()*.8))):
-         name=random.choice(wordlist)
-         wordlist.remove(name)
+         name=random.choice(self.wordlist)
+         self.wordlist.remove(name)
          password=''.join(random.choice(characters) for j in range(random.randint(6,12)))
          groups=[]
          hidden=False
          strength="strong"
          self.users.append(User(name,password,groups,hidden,strength))
       for i in range(int(round(self.engine.getUserCount()*.2))):
-         name=random.choice(wordlist)
-         wordlist.remove(name)
+         name=random.choice(self.wordlist)
+         self.wordlist.remove(name)
          password=''.join(random.choice(characters) for j in range(random.randint(6,12)))
          groups=['sudo']
          hidden=False
@@ -183,11 +201,16 @@ Authorized Users:
 
    def makeScoreFile(self):
       with open(self.booleanFile,"w") as f:
-         for i in self.services:
-            f.write(i.getScoreCmd()+"\n")
-         for i in self.insertions:
-            f.write(i.getScoreCmd()+"\n")
-
+         f.write("{\n")
+         for j,i in enumerate(self.services):
+            end=",\n"
+            if j==self.services.length-1 and self.insertions.length==0: end="\n"
+            f.write("\""+i.name+"\""+":"+"\""+i.getScoreCmd()+"\""+end)
+         for j,i in enumerate(self.insertions):
+            end=",\n"
+            if j==self.insertions.length-1: end="\n"
+            f.write("\""+i.name+"\""+":"+"\""+i.getScoreCmd()+"\""+end)
+         f.write("}\n")
    def makeScenarioFile(self):
       sTemp="""
 """
@@ -205,6 +228,7 @@ Authorized Users:
       self.scenario=self.scenario.format(**
          {
             "services":sTemp,
+            "mainUser": self.mainUser,
             "admins":aTemp,
             "users":uTemp
          }
