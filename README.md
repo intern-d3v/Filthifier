@@ -65,8 +65,8 @@ The Filthifier relies on three primary configurations:
 To execute the filthifier, run ```$ python filthifier.py``` This outputs the following files to the build/ directory:
   - initfile.bash
     - file to initialize the virtual machine with vulnerabilities
-  - scoreconfig.bash
-    - file of commands to check success on the vulnerable machine
+  - scoreconfig.json
+    - json file containing description of vulnerability as key with command as element
   - scenario.txt
     - file containing user logins, required services, and company policy
   - dependencies.tar.gz
