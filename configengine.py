@@ -82,12 +82,12 @@ class ConfigEngine():
 
         for subdirectory in os.listdir(self.vulnsDir):
             info = json.loads(
-                open(self.vulnsDir+subdirectory+"/info.json").read())
+                open(self.vulnsDir + subdirectory + "/info.json").read())
             self.vulnerabilities[info["type"]
                                  ][info["difficulty"]].append(info["name"])
         for subdirectory in os.listdir("services"):
             info = json.loads(
-                open("services/"+subdirectory+"/info.json").read())
+                open("services/" + subdirectory + "/info.json").read())
             self.vulnerabilities[info["type"]
                                  ][info["difficulty"]][info["name"]] = info["name"]
 
@@ -104,14 +104,19 @@ class ConfigEngine():
         return self.difficulty
 
     def getDiffConfig(self):
-        return self.masterConfig['config']['validDifficulties'][self.getDifficulty()]
+        return self.masterConfig['config']['validDifficulties'][self.getDifficulty(
+        )]
 
     def getInfo(self, vuln_name, service=False):  # returns dictionary
         if service:
-            info = json.loads(open("services/"+vuln_name+"/info.json").read())
+            info = json.loads(
+                open(
+                    "services/" +
+                    vuln_name +
+                    "/info.json").read())
         else:
             info = json.loads(
-                open(self.vulnsDir+vuln_name+"/info.json").read())
+                open(self.vulnsDir + vuln_name + "/info.json").read())
         return info
 
     def getVulns(self, type, difficulty=None):
@@ -125,8 +130,11 @@ class ConfigEngine():
         return self.formatVulns([self.getVulns('services')[name]], True)
 
     def getVulnCountForCategory(self, category, diff):
-        percent = ((1.0*self.getDiffConfig()['categoryWeights'][category] *
-                    self.getNumVulns()*self.getDiffConfig()['difficultyWeight'][diff]))
+        percent = (
+            (1.0 *
+             self.getDiffConfig()['categoryWeights'][category] *
+             self.getNumVulns() *
+             self.getDiffConfig()['difficultyWeight'][diff]))
         return int(round(percent))
 
     def getValidDifficulties(self):
@@ -170,10 +178,15 @@ class ConfigEngine():
     def getNextDiff(self, tempVulns, type, diff):
         diffs = self.masterConfig['config']['validDiffs']
         if len(tempVulns) == 0:
-            if diffs.index(diff) == len(diffs)-1:
+            if diffs.index(diff) == len(diffs) - 1:
                 return -1
-            nextDiff = diffs[diffs.index(diff)+1]
-            return self.getNextDiff(self.getVulns(type, nextDiff), type, nextDiff)
+            nextDiff = diffs[diffs.index(diff) + 1]
+            return self.getNextDiff(
+                self.getVulns(
+                    type,
+                    nextDiff),
+                type,
+                nextDiff)
         else:
             return tempVulns
 
@@ -182,14 +195,24 @@ class ConfigEngine():
         for i in vulns:
             info = self.getInfo(i, service)
             if info["type"] == "services":
-                dep = "./services/"+i+"/"+"dependencies.tar.gz"
+                dep = "./services/" + i + "/" + "dependencies.tar.gz"
                 prefix = "services/"
             else:
                 prefix = self.vulnsDir
-                dep = self.vulnsDir+i+"/dependencies.tar.gz"
+                dep = self.vulnsDir + i + "/dependencies.tar.gz"
 
-            new.append(self.formatVuln(info['description'], open(
-                prefix+i+"/check_success.sh").read(), open(prefix+i+"/init_vuln.sh").read(), dep))
+            new.append(
+                self.formatVuln(
+                    info['description'],
+                    open(
+                        prefix +
+                        i +
+                        "/check_success.sh").read(),
+                    open(
+                        prefix +
+                        i +
+                        "/init_vuln.sh").read(),
+                    dep))
         if service:
             return new[0]
         return new
@@ -213,7 +236,12 @@ class ConfigEngine():
         diffWeight = self.getValidDifficulties(
         )[self.getDifficulty()]['categoryWeights']['services']
         percent = (
-            ((1.0*serviceAtDiffCount/totalNum*serviceWeight*nVulns*diffWeight)))
+            ((1.0 *
+              serviceAtDiffCount /
+              totalNum *
+              serviceWeight *
+              nVulns *
+              diffWeight)))
         return int(round(percent))
 
     def getCatWeights(self):

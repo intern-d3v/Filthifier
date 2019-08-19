@@ -29,11 +29,11 @@ def main():
    """
 
     for i, j in enumerate(vm.getInsertions()):
-        if i+1 == len(vm.getInsertions()):
+        if i + 1 == len(vm.getInsertions()):
             midTemplate = midTemplate[:-5]
         beginTemplate += midTemplate.format(
             **{
-                "num": i+1,
+                "num": i + 1,
                 "description": j.getDescription(),
                 "value": 0,
                 "boolean": j.getScoreCmd()

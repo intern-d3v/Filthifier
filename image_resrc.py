@@ -5,7 +5,14 @@ import string
 
 
 class User(object):
-    def __init__(self, name, password="password", groups=[], hidden=False, strength="strong", authorized=True):
+    def __init__(
+            self,
+            name,
+            password="password",
+            groups=[],
+            hidden=False,
+            strength="strong",
+            authorized=True):
         self.username = name
         self.password = password
         self.groups = groups
@@ -24,7 +31,7 @@ class User(object):
         if len(self.groups) > 0:
             args += "-G "
             for i in self.groups:
-                args += i+","
+                args += i + ","
             if args[-1] == ",":
                 args = args[:-1]
         adduser = "useradd %s -s '/bin/bash' -p $(mkpasswd --method=%s %s) %s" % (
@@ -52,10 +59,10 @@ class Insertion(object):  # abstract class for any change made to image.
         os.system(initCommand)
 
 
-
 class Service(Insertion):
     def __init__(self, conf):
         super(Service, self).__init__(conf)
+
 
 class Image():  # a virtual machine image
     def __init__(self, configEngine):
@@ -115,13 +122,15 @@ Authorized Users:
         for i in weights.keys():
             for j in self.engine.getMasterConfig()['config']['validDiffs']:
                 if self.engine.getVulnCountForCategory(i, j) > 0:
-                    for k in self.engine.getRandVulns(i, j, self.engine.getVulnCountForCategory(i, j)):
+                    for k in self.engine.getRandVulns(
+                            i, j, self.engine.getVulnCountForCategory(i, j)):
                         if any("{randomUser}" in l for l in k):
                             u = random.choice(tempUsers)
                             tempUsers.remove(u)
                             context = {"randomUser": u.username}
-                            k = [line.format(
-                                **context) if "{randomUser}" else line in line for line in k]
+                            k = [
+                                line.format(
+                                    **context) if "{randomUser}" else line in line for line in k]
                         if any("{mainUser}" in l for l in k):
                             k = [line.format(
                                 **{"mainUser": self.mainUser}) if "{mainUser}" else line in line for line in k]
@@ -143,13 +152,14 @@ Authorized Users:
         for i in self.reqServices:
             for j in self.engine.getMasterConfig()['config']['validDiffs']:
                 if self.engine.getVulnCountForService(i, j) > 0:
-                    for k in self.engine.getRandVulns(i, j, self.engine.getVulnCountForService(i, j)):
+                    for k in self.engine.getRandVulns(
+                            i, j, self.engine.getVulnCountForService(i, j)):
                         self.insertions.append(Insertion(k))
 
     def initUsers(self):
         self.wordlist = [line.rstrip('\n') for line in open('names.txt')]
-        characters = string.ascii_letters+string.digits
-        for i in range(int(round(self.engine.getUserCount()*.8))):
+        characters = string.ascii_letters + string.digits
+        for i in range(int(round(self.engine.getUserCount() * .8))):
             name = random.choice(self.wordlist)
             self.wordlist.remove(name)
             password = ''.join(random.choice(characters)
@@ -158,7 +168,7 @@ Authorized Users:
             hidden = False
             strength = "strong"
             self.users.append(User(name, password, groups, hidden, strength))
-        for i in range(int(round(self.engine.getUserCount()*.2))):
+        for i in range(int(round(self.engine.getUserCount() * .2))):
             name = random.choice(self.wordlist)
             self.wordlist.remove(name)
             password = ''.join(random.choice(characters)
@@ -198,16 +208,16 @@ Authorized Users:
             f.write("{\n")
             for j, i in enumerate(self.services):
                 end = ",\n"
-                if j == len(self.services)-1 and len(self.insertions) == 0:
+                if j == len(self.services) - 1 and len(self.insertions) == 0:
                     end = "\n"
-                f.write("\""+i.description+"\""+":"+"\"" +
-                        i.getScoreCmd().replace("\n", '')+"\""+end)
+                f.write("\"" + i.description + "\"" + ":" + "\"" +
+                        i.getScoreCmd().replace("\n", '') + "\"" + end)
             for j, i in enumerate(self.insertions):
                 end = ",\n"
-                if j == len(self.insertions)-1:
+                if j == len(self.insertions) - 1:
                     end = "\n"
-                f.write("\""+i.description+"\""+":"+"\"" +
-                        i.getScoreCmd().replace("\n", '')+"\""+end)
+                f.write("\"" + i.description + "\"" + ":" + "\"" +
+                        i.getScoreCmd().replace("\n", '') + "\"" + end)
             f.write("}\n")
 
     def makeScenarioFile(self):
@@ -218,14 +228,15 @@ Authorized Users:
         uTemp = """
 """
         for i in self.services:
-            sTemp += (i.description+"\n")
-        aTemp += self.mainUser.username+":"+self.mainUser.password+" (you)\n"
+            sTemp += (i.description + "\n")
+        aTemp += self.mainUser.username + ":" + \
+            self.mainUser.password + " (you)\n"
         tmp = self.adminUsers
         tmp.remove(self.mainUser)
         for i in tmp:
-            aTemp += (i.username+":"+i.password+"\n")
-        for i in (list(set(self.users)-set(self.adminUsers))):
-            uTemp += (i.username+"\n")
+            aTemp += (i.username + ":" + i.password + "\n")
+        for i in (list(set(self.users) - set(self.adminUsers))):
+            uTemp += (i.username + "\n")
         self.scenario = self.scenario.format(**
                                              {
                                                  "services": sTemp,
@@ -238,7 +249,7 @@ Authorized Users:
 
     def recursiveFormat(self, array, dict):
         for element in array:
-            if type(element) is str:
+            if isinstance(element, str):
                 array[array.index(element)] = element.format(**dict)
             else:
                 array[array.index(element)] = self.recursiveFormat(
