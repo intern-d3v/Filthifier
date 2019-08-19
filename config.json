@@ -27,10 +27,10 @@
 				"minbound":21,
 				"maxbound":28,
 				"categoryWeights": {
-                                	"userAudit": 0.19,
-					"loginPolicy": 0.1,
+                                	"userAudit": 0.12,
+					"loginPolicy": 0.15,
 					"securityAudit": 0.34,
-					"services": 0.1,
+					"services": 0.12,
 					"updates": 0.0,
 					"unauthorizedSoftware": 0.2,
 					"kernelAudit": 0.07

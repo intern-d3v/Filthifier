@@ -100,18 +100,21 @@ class ConfigEngine():
 		return self.masterConfig['config']['validDifficulties'][self.getDifficulty()]
 
 
-	def getInfo(self,vuln_name): #returns dictionary
-   		info=json.loads(open(self.vulnsDir+vuln_name+"/info.json").read())
+	def getInfo(self,vuln_name,service=False): #returns dictionary
+                if service:
+			info=json.loads(open("services/"+vuln_name+"/info.json").read())
+   		else:
+			info=json.loads(open(self.vulnsDir+vuln_name+"/info.json").read())
    		return info
 
 	def getVulns(self,type,difficulty=None):
 		if not difficulty: difficulty=self.getDifficulty()
-		if type=="service":
+		if type=="services":
 			return self.vulnerabilities['services']['easy']
 		return self.vulnerabilities[type][difficulty]
 	def getService(self,name):
-		print self.getVulns('service')
-		return self.getVulns('service')[name]
+		#print self.getVulns('services')
+		return self.formatVulns([self.getVulns('services')[name]],True)
 
 	def getVulnCountForCategory(self,category,diff):
 		percent=((1.0*self.getDiffConfig()['categoryWeights'][category]*self.getNumVulns()*self.getDiffConfig()['difficultyWeight'][diff]))
@@ -163,15 +166,19 @@ class ConfigEngine():
 		else:
 			return tempVulns
 
-	def formatVulns(self,vulns):
+	def formatVulns(self,vulns,service=False):
 		new=[]
 		for i in vulns:
-			info=self.getInfo(i)
-			if info["type"]=="service":
+			info=self.getInfo(i,service)
+			if info["type"]=="services":
 				dep="./services/"+i+"/"+"dependencies.tar.gz"
+				prefix="services/"
 			else:
-				dep=self.vulnsDir+i+"/"+"dependencies.tar.gz"
-			new.append(self.formatVuln(info['description'],open(self.vulnsDir+i+"/check_success.sh").readlines(),open(self.vulnsDir+i+"/init_vuln.sh").readlines(),dep))
+				prefix=self.vulnsDir
+				dep=self.vulnsDir+i+"/dependencies.tar.gz"
+
+			new.append(self.formatVuln(info['description'],open(prefix+i+"/check_success.sh").read(),open(prefix+i+"/init_vuln.sh").read(),dep))
+                if service: return new[0]
 		return new
 
 	def formatVuln(self,description,bool,init,dep):

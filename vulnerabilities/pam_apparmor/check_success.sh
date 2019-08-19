@@ -1,2 +1,1 @@
-#!/bin/sh
 \[ "$(apparmor_status | grep 'are loaded'| cut -d " " -f1)"  == "$(apparmor_status | grep 'profiles are in enforce mode' | cut -d " " -f1)" && $( dpkg -l | grep libpam-apparmor | cut -d" " -f1 |grep ii) \] 

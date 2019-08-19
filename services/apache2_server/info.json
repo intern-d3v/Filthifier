@@ -1,6 +1,0 @@
-{
-	"name": "apache2",
-	"description": "apache2 web server",
-	"type": "services",
-	"difficulty": "easy"
-}

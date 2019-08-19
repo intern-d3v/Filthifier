@@ -1,2 +1,1 @@
-#!/bin/sh
-test -e /home/{mainUser}
+test -e /home/"{mainUser}"

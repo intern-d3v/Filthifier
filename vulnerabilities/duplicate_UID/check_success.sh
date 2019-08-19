@@ -1,2 +1,1 @@
-#!/bin/sh
-! awk -F: '{print $3}' /etc/passwd | sort |uniq -d
+! getent /etc/passwd | cut -d ":" -f 3 | sort |uniq -d

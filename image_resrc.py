@@ -53,6 +53,7 @@ class Vuln(Insertion): #(probably an subclass of Insertion) a vulnerability
 
 class Service(Insertion): #("") a service
    def __init__(self,conf):
+      #print conf
       super(Service,self).__init__(conf)
 
 
@@ -73,7 +74,7 @@ class Image(): #a virtual machine image
       self.adminUsers=[]
       self.mainUser=""
       self.initFile="build/initfile.bash"
-      self.booleanFile="build/scoreconfig.bash"
+      self.booleanFile="build/scoreconfig.json"
       self.dependencies=[]
       if "random" in self.engine.getVulnerability():
          self.initAllRandom()
@@ -87,7 +88,6 @@ Required Services:
 {services}
 
 Authorized Admins:
-(you) {mainUser}
 {admins}
 
 Authorized Users:
@@ -97,7 +97,7 @@ Authorized Users:
 
    def initImage(self):
       vulns=self.engine.getVulnerability()
-      for i in vulns:
+      for i in self.engine.formatVulns(vulns):
          tmp=Insertion(i)
          self.insertions.append(tmp)
          self.dependencies.append(tmp.dependencies)
@@ -110,7 +110,7 @@ Authorized Users:
       self.initServices()
       self.initServiceVulns()
       self.initCategoryVulns()
-      self.initDependencies()
+      #self.initDependencies()
 
    def initCategoryVulns(self):
       weights=self.engine.getCatWeights()
@@ -123,19 +123,17 @@ Authorized Users:
                #print self.engine.getVulnCountForCategory(i,j)
                for k in self.engine.getRandVulns(i,j,self.engine.getVulnCountForCategory(i,j)):
                   if any("{randomUser}" in l for l in k):
-                     print k
                      u=random.choice(tempUsers)
                      tempUsers.remove(u)
                      context={"randomUser":u.username}
-                     k=[line.format(**context) for line in k]
+                     k=[line.format(**context) if "{randomUser}" else line in line for line in k]
                   if any("{mainUser}" in l for l in k):
-                     print k
-                     k=[line.format(**{"mainUser":self.mainUser}) for line in k]
+                     k=[line.format(**{"mainUser":self.mainUser}) if "{mainUser}" else line in line for line in k]
                   if any("{randomUsername}" in l for l in k):
-                     print k
                      name=random.choice(self.wordlist)
                      self.wordlist.remove(name)
-                     k=[line.format(**{"randomUsername":name}) for line in k]
+                     k=[line.format(**{"randomUsername":name}) if "{randomUserName}" in line else line for line in k]
+                  #print k
                   tmp=Insertion(k)
                   self.insertions.append(tmp)
                   self.dependencies.append(tmp.dependencies)
@@ -145,7 +143,7 @@ Authorized Users:
       #   os.remove(os.path.join("./archive/", f))
       with tarfile.open("./build/dependencies.tar.gz", "w:gz") as tar:
          for i in self.dependencies:
-            print i
+            #print i
             tar.add(i)
    def initServiceVulns(self):
       for i in self.reqServices:
@@ -197,6 +195,7 @@ Authorized Users:
          for i in self.insertions:
             f.write(i.getInitCmd())
             f.write("\n")
+
       return f
 
    def makeScoreFile(self):
@@ -204,12 +203,12 @@ Authorized Users:
          f.write("{\n")
          for j,i in enumerate(self.services):
             end=",\n"
-            if j==self.services.length-1 and self.insertions.length==0: end="\n"
-            f.write("\""+i.name+"\""+":"+"\""+i.getScoreCmd()+"\""+end)
+            if j==len(self.services)-1 and len(self.insertions)==0: end="\n"
+            f.write("\""+i.description+"\""+":"+"\""+i.getScoreCmd().replace("\n",'')+"\""+end)
          for j,i in enumerate(self.insertions):
             end=",\n"
-            if j==self.insertions.length-1: end="\n"
-            f.write("\""+i.name+"\""+":"+"\""+i.getScoreCmd()+"\""+end)
+            if j==len(self.insertions)-1: end="\n"
+            f.write("\""+i.description+"\""+":"+"\""+i.getScoreCmd().replace("\n",'')+"\""+end)
          f.write("}\n")
    def makeScenarioFile(self):
       sTemp="""
@@ -220,15 +219,16 @@ Authorized Users:
 """
       for i in self.services:
          sTemp+=(i.description+"\n")
-      aTemp+=self.mainUser.username+":"+self.mainUser.password+" (you)"
-      for i in self.adminUsers:
+      aTemp+=self.mainUser.username+":"+self.mainUser.password+" (you)\n"
+      tmp=self.adminUsers
+      tmp.remove(self.mainUser)
+      for i in tmp:
          aTemp+=(i.username+":"+i.password+"\n")
       for i in (list(set(self.users)-set(self.adminUsers))):
          uTemp+=(i.username+"\n")
       self.scenario=self.scenario.format(**
          {
             "services":sTemp,
-            "mainUser": self.mainUser,
             "admins":aTemp,
             "users":uTemp
          }
@@ -236,3 +236,10 @@ Authorized Users:
       with open("build/scenario.txt",'w') as f:
          f.write(self.scenario)
 
+   def recursiveFormat(self,array,dict):
+      for element in array:
+         if type(element) is str:
+            array[array.index(element)]=element.format(**dict)
+         else:
+            array[array.index(element)]=self.recursiveFormat(element,dict)
+      return array

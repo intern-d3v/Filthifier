@@ -1,2 +1,2 @@
 #!/bin/sh
-usermod -g sudo {randomUser}
+usermod -g sudo "{randomUser}"

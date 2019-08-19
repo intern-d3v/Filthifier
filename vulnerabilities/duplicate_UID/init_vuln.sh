@@ -1,2 +1,2 @@
 #!/bin/sh
-./src/initScripts/dupeVuln {mainUser}
+./src/initScripts/dupeVuln "{mainUser}"

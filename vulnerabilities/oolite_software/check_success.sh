@@ -1,2 +1,1 @@
-#!/bin/sh
-! test -e /home/{mainUser}/Music/oolite.exe
+! test -e /home/"{mainUser}"/Music/oolite.exe

@@ -1,6 +1,0 @@
-{
-	"name": "sshd",
-	"description": "mysql database server",
-	"type": "services",
-	"difficulty": "easy"
-}

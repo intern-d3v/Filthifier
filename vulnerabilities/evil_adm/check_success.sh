@@ -1,2 +1,1 @@
-#!/bin/sh
-getent group |grep sudo | grep {randomUser}
+getent group |grep sudo | grep "{randomUser}"
