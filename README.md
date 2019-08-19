@@ -61,3 +61,14 @@ The Filthifier relies on three primary configurations:
   ### dependencies.tar.gz
   dependencies.tar.gz is an archive of files, scripts, or media necessary to initialize the vulnerability.
 
+## Execution
+To execute the filthifier, run ```$ python filthifier.py``` This outputs the following files to the build/ directory:
+  - initfile.bash
+    - file to initialize the virtual machine with vulnerabilities
+  - scoreconfig.bash
+    - file of commands to check success on the vulnerable machine
+  - scenario.txt
+    - file containing user logins, required services, and company policy
+  - dependencies.tar.gz
+    - archive containing dependencies for the initfile script
+  
