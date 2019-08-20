@@ -14,9 +14,11 @@ A python tool to generate a virtual machine with random vulnerabilities based of
 		- securityAudit: general security misconfiguration and exploitables
 		- services: vulnerabilities in required services which are improperly configured
 		- kernelAudit: kernel security vulnerabilities
+
+	Image - a virtual machine
 		
 ## Configuring
-The Filthifier relies on three primary configurations:
+The Filthifier relies on three primary configuration files/directories:
 - prefs.json
 - vulnerabilities/
 - config.json
@@ -31,7 +33,7 @@ The Filthifier relies on three primary configurations:
   - services
     - list to define which services should be required on the challenge image (ex: [ssh,apache2])
   - vulnerabilities
-    - set to a list of individual vulnerabilities (ex: ["ssh_root_login"]) to only implement the desired vulnerabilities. Alternatively, the "random" flag can be used to generate a full image based off the information in config.json
+    - set to a list of individual vulnerabilities (ex: ["ssh_root_login"]) to only implement the desired vulnerabilities. Alternatively, the "random" flag can be used to generate a full image based off the information in config.json.
 
 ### vulnerabilities/
   vulnerabilities/ contains a subdirectory for each vunlerability to be sourced for image creation. The name of each subdirectory should reflect a general description of the vulnerability. For example, the directory heirarchy for a vulnerability concerning remote root login over ssh is as follows:
@@ -64,7 +66,16 @@ The Filthifier relies on three primary configurations:
   dependencies.tar.gz is an archive of files, scripts, or media necessary to initialize the vulnerability.
 
 ### config.json
-config.json should be edited by advanced users only. TO BE IMPLEMENTED.
+config.json should be edited by advanced users only. It contains several fields that are integral to the filthifier. Misconfiguring these fields can especially lead to failure since no error handling is currently in place and there are plenty of facets for misconfiguration. config.json is divided into three main keys: "easy", "medium", and "hard". Each key represents a configuration for the valid difficulties that the Filthifier can support. Each key contains fields that determine unique aspects of the image for its difficulty level. Fields in italics always affect the produced image. Otherwise, the fields only affect "random" images.
+  - *(min/max)Users*
+    - these fields define the minimum and maximum range from which a random amount of users will be generated. If both fields are set to the same value, that value of users will be generated.
+  - *percentAdmins*
+    - field to determine which percent of users will be admins. For example, if the userCount is determined to be 10 from (min/max)Users, and percentAdmins is 0.2, then 2 out of the 10 users will be designated "admin" and added to the sudo group.
+  - (min/max)Bound
+    - these fields determine the minimum and maximum range from which a weighted random amount of vulnerabilities will be generated.
+  - categoryWeights
+    - a dictionary containing a key for each category corresponding to the percentage of vulnerabilities that should fall under said category. For example, if "userAudit" is weighted at 0.2, then 20% of the total vulnerabilities will be of the category "userAudit". If the weights do not add up to 1.00, then the filthifier will not properly execute.
+  
 ## Execution
 To execute the filthifier, run ```$ python filthifier.py``` This outputs the following files to the build/ directory:
   - initfile.bash
