@@ -24,6 +24,9 @@ class ConfigEngine():
             self.getDiffConfig()['minUsers'],
             self.getDiffConfig()['maxUsers']
         )
+        self.adminPercent = self.getDiffConfig()['percentAdmins']
+        self.adminCount = self.userCount*self.adminPercent
+
         self.vulnerabilities = {
             "services": {
                 "easy": [],
@@ -85,17 +88,21 @@ class ConfigEngine():
                 open(self.vulnsDir + subdirectory + "/info.json").read())
             self.vulnerabilities[info["type"]
                                  ][info["difficulty"]].append(info["name"])
+
         for subdirectory in os.listdir("services"):
             info = json.loads(
                 open("services/" + subdirectory + "/info.json").read())
             self.vulnerabilities[info["type"]
                                  ][info["difficulty"]][info["name"]] = info["name"]
 
-    def getVulnerability(self):
+    def getReqVulnerability(self):
         return self.reqVulns
 
     def getDistro(self):
         return self.distro
+
+    def getAdminCount(self):
+        return self.adminCount
 
     def getUserCount(self):
         return self.userCount

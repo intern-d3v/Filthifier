@@ -6,6 +6,7 @@
 				"maxUsers":12,
 				"minbound":12,
 				"maxbound":18,
+				"percentAdmins": 0.2,
                                 "categoryWeights": {
                                 	"userAudit": 0.20,
 					"loginPolicy": 0.22,
@@ -26,6 +27,7 @@
 				"maxUsers":12,
 				"minbound":21,
 				"maxbound":28,
+				"percentAdmins": 0.2,
 				"categoryWeights": {
                                 	"userAudit": 0.12,
 					"loginPolicy": 0.15,
@@ -46,6 +48,7 @@
 				"minUsers":8,
 				"maxUsers":12,
 				"maxbound":40,
+				"percentAdmins": 0.2,
                                 "categoryWeights": {
                                 	"userAudit": 0.15,
 					"loginPolicy": 0.17,

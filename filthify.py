@@ -4,8 +4,6 @@ import sys
 
 prefConfig = "prefs.json"
 hardConfig = "config.json"
-vulnsConfig = "vulns.json"
-
 
 def main():
     Configurer = ConfigEngine(hardConfig, prefConfig)
@@ -13,6 +11,9 @@ def main():
     vm.makeInitFile()
     vm.makeScoreFile()
     vm.makeScenarioFile()
+
+#the below is only relevant to nathan prouse
+'''
     beginTemplate = """
 {
 	"teams":{
@@ -44,7 +45,7 @@ def main():
     with open("build/server.json", "w") as f:
         f.write(beginTemplate)
         f.close()
-
+'''
 
 if __name__ == "__main__":
     main()
