@@ -126,10 +126,11 @@ Authorized Users:
         weights = self.engine.getCatWeights()
         weights.pop('services')
         tempUsers = self.users
+        tempUsers.remove(self.mainUser)
         # iterates over every category that is not a service
         for type in weights.keys():
             # iterates over each difficulty in each category
-            for diff in self.engine.getMasterConfig()['config']['validDiffs']:
+            for diff in self.engine.getMasterConfig()['config']['validDifficulties'].keys():
                 targetVulnCount = self.engine.getVulnCountForCategory(
                     type, diff)
                 if targetVulnCount > 0:  # if the category should have any vulnerabilities in it
@@ -141,15 +142,14 @@ Authorized Users:
                         # below all vulnerabilities are formatted to custom
                         # standards. will implement method customFormat(key,
                         # element, array) to make easier
-                        u = random.choice(tempUsers)
-                        tempUsers.remove(u)
-                        self.customFormat("randomUser", u.username, k)
+                        u=random.choice(tempUsers)
+                        k=self.customFormat("randomUser", u.username, k)
 
-                        self.customFormat("mainUser", self.mainUser, k)
+                        k=self.customFormat("mainUser", self.mainUser, k)
 
                         name = random.choice(self.wordlist)
                         self.wordlist.remove(name)
-                        self.customFormat("randomUsername", name, k)
+                        k=self.customFormat("randomUsername", name, k)
 
                         # vulnerability is instantiated as Insertion object
                         tmp = Insertion(k)
@@ -166,7 +166,7 @@ Authorized Users:
 
     def initServiceVulns(self):
         for i in self.reqServices:
-            for j in self.engine.getMasterConfig()['config']['validDiffs']:
+            for j in self.engine.getMasterConfig()['config']['validDifficulties'].keys():
                 if self.engine.getVulnCountForService(i, j) > 0:
                     for k in self.engine.getRandVulns(
                             i, j, self.engine.getVulnCountForService(i, j)):
@@ -197,8 +197,7 @@ Authorized Users:
             u = (User(name, password, groups, hidden, strength))
             if 'sudo' in groups:
                 self.adminUsers.append(u)
-            else:
-                self.users.append(u)
+            self.users.append(u)
         self.mainUser = random.choice(self.adminUsers)
 
     def initServices(self):
