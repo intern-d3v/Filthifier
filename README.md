@@ -30,6 +30,8 @@ The Filthifier relies on three primary configurations:
     - select from easy, medium, or hard to govern the difficulty of the training image produced
   - services
     - list to define which services should be required on the challenge image (ex: [ssh,apache2])
+  - vulnerabilities
+    - set to a list of individual vulnerabilities (ex: ["ssh_root_login"]) to only implement the desired vulnerabilities. Alternatively, the "random" flag can be used to generate a full image based off the information in config.json
 
 ### vulnerabilities/
   vulnerabilities/ contains a subdirectory for each vunlerability to be sourced for image creation. The name of each subdirectory should reflect a general description of the vulnerability. For example, the directory heirarchy for a vulnerability concerning remote root login over ssh is as follows:
@@ -61,6 +63,8 @@ The Filthifier relies on three primary configurations:
   ### dependencies.tar.gz
   dependencies.tar.gz is an archive of files, scripts, or media necessary to initialize the vulnerability.
 
+### config.json
+config.json should be edited by advanced users only. TO BE IMPLEMENTED.
 ## Execution
 To execute the filthifier, run ```$ python filthifier.py``` This outputs the following files to the build/ directory:
   - initfile.bash
