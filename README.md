@@ -67,9 +67,9 @@ The Filthifier relies on three primary configurations:
 
 ### config.json
 config.json should be edited by advanced users only. It contains several fields that are integral to the filthifier. Misconfiguring these fields can especially lead to failure since no error handling is currently in place and there are plenty of facets for misconfiguration. config.json is divided into three main keys: "easy", "medium", and "hard". Each key represents a configuration for the valid difficulties that the Filthifier can support. Each key contains fields that determine unique aspects of the image for its difficulty level. Fields in italics always affect the produced image. Otherwise, the fields only affect "random" images.
-  - *(min/max)Users
+  - *(min/max)Users*
     - these fields define the minimum and maximum range from which a random amount of users will be generated. If both fields are set to the same value, that value of users will be generated.
-  - *percentAdmins
+  - *percentAdmins*
     - field to determine which percent of users will be admins. For example, if the userCount is determined to be 10 from (min/max)Users, and percentAdmins is 0.2, then 2 out of the 10 users will be designated "admin" and added to the sudo group.
   - (min/max)Bound
     - these fields determine the minimum and maximum range from which a weighted random amount of vulnerabilities will be generated.
