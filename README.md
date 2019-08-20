@@ -48,16 +48,16 @@ The Filthifier relies on three primary configuration files/directories:
   Each file is necessary for a vulnerability to be generated. The vulnerability will not be loaded if all files are not present.
   ### info.json
   The info.json file contains multiple fields as properties of a vulnerability.
-  	- name
-	  - the name given to the parent directory of info.json
-	- description
-	  - a concise description of the vulnerability
-	- type
-	  - the category which describes the vulnerability
-	- difficulty
-	  - the difficulty (easy, medium, hard) of the vulnerability
-	- stig_id
-	  - the stig_id of the vulnerability (if applicable to the stig index)
+  - name
+    - the name given to the parent directory of info.json
+  - description
+    - a concise description of the vulnerability
+  - type
+    - the category which describes the vulnerability
+  - difficulty
+    - the difficulty (easy, medium, hard) of the vulnerability
+  - stig_id
+    - the stig_id of the vulnerability (if applicable to the stig index)
   ### check_success.sh
   check_success.sh contains a bash boolean which executes to verify that the vulnerability has been removed. It returns 0 on execution if the vulnerability is removed.
   ### init.sh
