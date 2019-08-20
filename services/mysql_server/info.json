@@ -1,5 +1,5 @@
 {
-	"name": "mysql",
+	"name": "mysql_server",
 	"description": "mysql database server",
 	"type": "services",
 	"difficulty": "easy"

@@ -101,8 +101,8 @@ Authorized Users:
 
     def initImage(self):
         vulns = self.engine.getReqVulnerability()
-        for i in self.engine.formatVulns(vulns):
-            tmp = Insertion(i)
+        for i in vulns:
+            tmp = Insertion(self.engine.getVulnByName(i))
             self.insertions.append(tmp)
             self.dependencies.append(tmp.dependencies)
         self.initUsers()

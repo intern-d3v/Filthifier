@@ -3,7 +3,7 @@
 	"name": "mysql_local_files",
 	"stig_id" : "",
 	"description": "Mysql cannot load local files",
-	"type": "mysql",
+	"type": "mysql_server",
 	"difficulty": "hard"
 
 }

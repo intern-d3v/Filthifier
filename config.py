@@ -68,7 +68,7 @@ class ConfigEngine():
                 "medium": {},
                 "hard": {}
             },
-            "mysql": {
+            "mysql_server": {
                 "easy": {},
                 "medium": {},
                 "hard": {}
@@ -79,12 +79,15 @@ class ConfigEngine():
         }
 
         for subdirectory in os.listdir(self.srvDir)+os.listdir(self.vulnsDir):
-            isService = False
+            isService=False
+            prefix=self.vulnsDir
+            if subdirectory in os.listdir(self.srvDir):
+                isService=True
+                prefix=self.srvDir
             info = json.loads(
-                open(self.srvDir + subdirectory + "/info.json").read())
-            if info["type"] == "services": isService = True
+                open(prefix + subdirectory + "/info.json").read())
             self.vulnerabilities[info["type"]
-                                 ][info["difficulty"]][info["name"]] = formatVulns(info["name"])
+                                 ][info["difficulty"]][info["name"]] = self.formatVuln(info["name"],isService)
 
     def getReqVulnerability(self):
         return self.reqVulns
@@ -97,6 +100,12 @@ class ConfigEngine():
 
     def getUserCount(self):
         return self.userCount
+
+    def getNumVulns(self):
+        return self.numVulns
+
+    def getCatWeights(self):
+        return self.getDiffConfig()['categoryWeights']
 
     def getDifficulty(self):
         return self.difficulty
@@ -117,13 +126,19 @@ class ConfigEngine():
     def getVulns(self, type, difficulty, name=""):
         return self.vulnerabilities[type][difficulty]
 
-    def getVuln(self,type,difficulty,name):
-        return self.vulnerabilities[type][difficulty][name]
+    def getVuln(self,cat,difficulty,name):
+        return self.vulnerabilities[cat][difficulty][name]
+
+    def getVulnByName(self,name):
+        for cat in self.vulnerabilities.values():
+            for diff in cat.values():
+                for key in diff.keys():
+                    if name == key: return diff[name]
 
     def getService(self,name, difficulty="easy"):
         return self.vulnerabilities['services'][difficulty][name]
 
-    def getVulnCountForCategory(self, category,3556W1 diff):
+    def getVulnCountForCategory(self, category,diff):
         percent = (
             (1.0 *
              self.getDiffConfig()['categoryWeights'][category] *
@@ -146,15 +161,6 @@ class ConfigEngine():
     def getReqServices(self):
         return self.prefConfig['config']['services']
 
-    def getRandUserVulns(self, diff, targetLen):
-        vulns = []
-        tempVulns = self.getVulns("userAudit", diff)
-        for i in range(targetLen):
-            if len(tempVulns) == 0:
-                tempVulns = self.getNextDiff(tempVulns, "userAudit", diff)
-            vulns.append(random.choice(tempVulns))
-        return vulns
-
     def getRandVulns(self, type, diff, targetLen):
         vulns = []
         diffs = self.masterConfig['config']['validDiffs']
@@ -166,8 +172,8 @@ class ConfigEngine():
                     print "u need more shit on " + type + ", lvl: " + diff
                 v = random.choice(tempVulns)
                 tempVulns.remove(v)
-                vulns.append(v)
-            return self.formatVulns(vulns)
+                vulns.append(self.vulnerabilities[type][diff][v])
+            return vulns
 
     def getNextDiff(self, tempVulns, type, diff):
         diffs = self.masterConfig['config']['validDiffs']
@@ -184,33 +190,29 @@ class ConfigEngine():
         else:
             return tempVulns
 
-    def formatVuln(self, vulns, service=False):
-        info = self.getInfo(i, service)
+    def formatVuln(self, name, service=False):
+        info = self.getInfo(name, service)
         if info["type"] == "services":
             prefix = self.srvDir
         else:
             prefix = self.vulnsDir
-        dep = prefix + i + "/dependencies.tar.gz"
+        dep = prefix + name + "/dependencies.tar.gz"
 
-        return
-            [
+        return [
                 info['description'],
                 open(
                     prefix +
-                    i +
+                    name +
                     "/check_success.sh").read(),
                 open(
                     prefix +
-                    i +
+                    name +
                     "/init_vuln.sh").read(),
                 dep]
 
-    def getNumVulns(self):
-        return self.numVulns
-
-    def getVulnCountForService(self, service, diff):
+    def getVulnCountForService(self, service, diff): #sum hardcore math
         vulns = []
-        serviceNum = len(self.vulnerabilities[service][diff])
+        serviceNum = len(self.getVulns(service, diff))
         totalNum = 0.0
         for srv in self.getReqServices():
             totalNum += len(self.getVulns(srv, diff))
@@ -229,5 +231,3 @@ class ConfigEngine():
               diffWeight)))
         return int(round(percent))
 
-    def getCatWeights(self):
-        return self.getDiffConfig()['categoryWeights']

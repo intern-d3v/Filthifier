@@ -1,8 +1,8 @@
 {
 
-	"name": "yersiana_software",
+	"name": "w3af_software",
 	"stig_id" : "",
-	"description": "Network hacking tool yersiana removed",
+	"description": "Network hacking tool w3af removed",
 	"type": "unauthorizedSoftware",
 	"difficulty": "hard"
 
