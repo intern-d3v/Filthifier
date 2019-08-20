@@ -1,5 +1,3 @@
-#!/bin/bash
-#!/bin/bash
 
 # Script to  install a perl backdoor ( with persistence)  and run it on a rando port 
 

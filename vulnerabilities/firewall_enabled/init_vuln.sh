@@ -1,2 +1,1 @@
-#!/bin/sh
 ufw disable
