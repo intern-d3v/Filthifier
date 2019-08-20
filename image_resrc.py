@@ -78,6 +78,7 @@ class Image():  # a virtual machine image
         self.users = []
         self.adminUsers = []
         self.mainUser = ""
+        if not os.path.exists("build/"): os.mkdir("build/")
         self.initFile = "build/initfile.bash"
         self.booleanFile = "build/scoreconfig.json"
         self.dependencies = []
@@ -86,7 +87,6 @@ class Image():  # a virtual machine image
         else:
             self.initImage()
         self.scenario = """
-
 <Insert Default Scenario Template Here>
 
 Required Services:
@@ -160,7 +160,7 @@ Authorized Users:
                         self.dependencies.append(tmp.dependencies)
 
     def initDependencies(self):
-        with tarfile.open("./build/dependencies.tar.gz", "w:gz") as tar:
+        with tarfile.open("build/dependencies.tar.gz", "w:gz") as tar:
             for i in self.dependencies:
                 tar.add(i)
 
