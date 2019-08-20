@@ -18,7 +18,7 @@ A python tool to generate a virtual machine with random vulnerabilities based of
 	Image - a virtual machine
 		
 ## Configuring
-The Filthifier relies on three primary configurations:
+The Filthifier relies on three primary configuration files/directories:
 - prefs.json
 - vulnerabilities/
 - config.json
