@@ -1,0 +1,6 @@
+{
+	"name": "sshd",
+	"description": "ssh remote login server",
+	"type": "services",
+	"difficulty": "easy"
+}
