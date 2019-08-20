@@ -1,9 +1,10 @@
 from image_resrc import *
-from configengine import *
+from config import *
 import sys
 
 prefConfig = "prefs.json"
 hardConfig = "config.json"
+
 
 def main():
     Configurer = ConfigEngine(hardConfig, prefConfig)
@@ -12,7 +13,8 @@ def main():
     vm.makeScoreFile()
     vm.makeScenarioFile()
 
-#the below is only relevant to nathan prouse
+
+# the below is only relevant to nathan prouse
 '''
     beginTemplate = """
 {

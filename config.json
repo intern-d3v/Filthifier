@@ -64,15 +64,6 @@
 					"hard": 0.5
 				}
 			}
-		},
-		"validServices":["ssh"],
-                "validDiffs":["easy","medium","hard"],
-		"validDistros": [
-			"ubuntu"
-		],
-
-		"os":"ubuntu",
-		"difficulty":"medium",
-		"services":["ssh","apache2"]
- }
+		}
+	}
 }

@@ -19,13 +19,13 @@ class ConfigEngine():
         self.difficulty = selection
         self.numVulns = random.randint(
             self.getDiffConfig()['minbound'], self.getDiffConfig()['maxbound'])
-        self.distro = self.masterConfig['config']['os']
+        self.distro = self.prefConfig['config']['os']
         self.userCount = random.randint(
             self.getDiffConfig()['minUsers'],
             self.getDiffConfig()['maxUsers']
         )
         self.adminPercent = self.getDiffConfig()['percentAdmins']
-        self.adminCount = self.userCount*self.adminPercent
+        self.adminCount = self.userCount * self.adminPercent
 
         self.vulnerabilities = {
             "services": {

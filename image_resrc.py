@@ -119,23 +119,28 @@ Authorized Users:
     def customFormat(self, key, value, array):
         array = [
             element.format(
-                **{key:value}) if key in element else element for element in array]
+                **{key: value}) if key in element else element for element in array]
         return array
 
     def initCategoryVulns(self):
         weights = self.engine.getCatWeights()
         weights.pop('services')
         tempUsers = self.users
-        #iterates over every category that is not a service
+        # iterates over every category that is not a service
         for type in weights.keys():
-            #iterates over each difficulty in each category
+            # iterates over each difficulty in each category
             for diff in self.engine.getMasterConfig()['config']['validDiffs']:
-                targetVulnCount=self.engine.getVulnCountForCategory(type,diff)
-                if targetVulnCount > 0: #if the category should have any vulnerabilities in it
+                targetVulnCount = self.engine.getVulnCountForCategory(
+                    type, diff)
+                if targetVulnCount > 0:  # if the category should have any vulnerabilities in it
                     for k in self.engine.getRandVulns(
-                            type, diff, targetVulnCount): #for each vulnerability out of those in the list output by getRandVulns
+                            type,
+                            diff,
+                            targetVulnCount):  # for each vulnerability out of those in the list output by getRandVulns
 
-                        #below all vulnerabilities are formatted to custom standards. will implement method customFormat(key, element, array) to make easier
+                        # below all vulnerabilities are formatted to custom
+                        # standards. will implement method customFormat(key,
+                        # element, array) to make easier
                         u = random.choice(tempUsers)
                         tempUsers.remove(u)
                         self.customFormat("randomUser", u.username, k)
@@ -146,9 +151,13 @@ Authorized Users:
                         self.wordlist.remove(name)
                         self.customFormat("randomUsername", name, k)
 
-                        tmp = Insertion(k) #vulnerability is instantiated as Insertion object
-                        self.insertions.append(tmp) #add to list of the image's insertions
-                        self.dependencies.append(tmp.dependencies) #add the vulnerabilities dependencies to the image's list
+                        # vulnerability is instantiated as Insertion object
+                        tmp = Insertion(k)
+                        # add to list of the image's insertions
+                        self.insertions.append(tmp)
+                        # add the vulnerabilities dependencies to the image's
+                        # list
+                        self.dependencies.append(tmp.dependencies)
 
     def initDependencies(self):
         with tarfile.open("./build/dependencies.tar.gz", "w:gz") as tar:
@@ -164,22 +173,28 @@ Authorized Users:
                         self.insertions.append(Insertion(k))
 
     def initUsers(self):
-        self.wordlist = [line.rstrip('\n') for line in open('names.txt')] #initialize wordlist of possible usernames
-        characters = string.ascii_letters + string.digits #str of ascii characters for password generation
-        userCount=self.engine.getUserCount()
-        adminCount=self.engine.getAdminCount()
-        for i in range(int(round(userCount))): #iterate for each standard user we must create
-            name = random.choice(self.wordlist) #pick their name
-            self.wordlist.remove(name) #remove it from future names
-            password = ''.join(random.choice(characters)
-                               for j in range(random.randint(6, 12))) #make their password
+        # initialize wordlist of possible usernames
+        self.wordlist = [line.rstrip('\n') for line in open('names.txt')]
+        # str of ascii characters for password generation
+        characters = string.ascii_letters + string.digits
+        userCount = self.engine.getUserCount()
+        adminCount = self.engine.getAdminCount()
+        for i in range(int(round(userCount))
+                       ):  # iterate for each standard user we must create
+            name = random.choice(self.wordlist)  # pick their name
+            self.wordlist.remove(name)  # remove it from future names
+            password = ''.join(
+                random.choice(characters) for j in range(
+                    random.randint(
+                        6, 12)))  # make their password
             groups = []
-            if adminCount > 0: #if admins still must be generated, make them in sudo group
+            if adminCount > 0:  # if admins still must be generated, make them in sudo group
                 groups = ['sudo']
-                adminCount-=1
-            hidden = False #standard users need not be hidden
-            strength = "strong" #password hash strength
-            u = (User(name, password, groups, hidden, strength)) #add user object to list of users
+                adminCount -= 1
+            hidden = False  # standard users need not be hidden
+            strength = "strong"  # password hash strength
+            # add user object to list of users
+            u = (User(name, password, groups, hidden, strength))
             if 'sudo' in groups:
                 self.adminUsers.append(u)
             else:
