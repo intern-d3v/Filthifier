@@ -170,7 +170,7 @@ class ConfigEngine():
 
     def getRandVulns(self, type, diff, targetLen):
         vulns = []
-        diffs = self.masterConfig['config']['validDifficulties'].keys()
+        diffs = self.masterConfig['config']['validDiffs']
         if len(vulns) < targetLen:
             tempVulns = self.getVulns(type, diff)
             while (len(vulns) < targetLen):
@@ -183,7 +183,7 @@ class ConfigEngine():
             return self.formatVulns(vulns)
 
     def getNextDiff(self, tempVulns, type, diff):
-        diffs = self.masterConfig['config']['validDifficulties'].keys()
+        diffs = self.masterConfig['config']['validDiffs']
         if len(tempVulns) == 0:
             if diffs.index(diff) == len(diffs) - 1:
                 return -1

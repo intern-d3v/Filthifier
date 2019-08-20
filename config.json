@@ -35,7 +35,7 @@
 					"services": 0.12,
 					"updates": 0.0,
 					"unauthorizedSoftware": 0.2,
-					"kernelAudit": 0.04
+					"kernelAudit": 0.07
 				},
                                 "difficultyWeight": {
 					"easy": 0.35,
