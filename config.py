@@ -197,6 +197,7 @@ class ConfigEngine():
         else:
             prefix = self.vulnsDir
         dep = prefix + name + "/dependencies.tar.gz"
+        if not os.path.exists(dep): dep = None
 
         return [
                 info['description'],
