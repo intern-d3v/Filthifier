@@ -1,6 +1,6 @@
 {
 
-	"name": "x11_forwarding",
+	"name": "ssh_x11_forwarding",
 	"stig_id" : "",
 	"description": "X11 forwarding disabled ",
 	"type": "sshd",

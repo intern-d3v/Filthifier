@@ -1,9 +1,9 @@
 {
 
-	"name": "evil_mysql_db",
+	"name": "mysql_evil_database",
 	"stig_id" : "",
 	"description": "Malicious Mysql database dropped",
-	"type": "mysql",
+	"type": "mysql_server",
 	"difficulty": "hard"
 
 }

@@ -78,9 +78,10 @@ class Image():  # a virtual machine image
         self.users = []
         self.adminUsers = []
         self.mainUser = ""
-        if not os.path.exists("build/"): os.mkdir("build/")
-        self.initFile = "build/initfile.bash"
-        self.booleanFile = "build/scoreconfig.json"
+        self.buildDir = "build/"
+        if not os.path.exists(self.buildDir): os.mkdir(self.buildDir)
+        self.initFile = self.buildDir + "initfile.bash"
+        self.booleanFile = self.buildDr + "scoreconfig.json"
         self.dependencies = []
         if "random" in self.engine.getReqVulnerability():
             self.initAllRandom()
@@ -101,8 +102,8 @@ Authorized Users:
 
     def initImage(self):
         vulns = self.engine.getReqVulnerability()
-        for i in self.engine.formatVulns(vulns):
-            tmp = Insertion(i)
+        for i in vulns:
+            tmp = Insertion(self.engine.getVulnByName(i))
             self.insertions.append(tmp)
             self.dependencies.append(tmp.dependencies)
         self.initUsers()
@@ -160,9 +161,9 @@ Authorized Users:
                         self.dependencies.append(tmp.dependencies)
 
     def initDependencies(self):
-        with tarfile.open("build/dependencies.tar.gz", "w:gz") as tar:
+        with tarfile.open(self.buildDir + "dependencies.tar.gz", "w:gz") as tar:
             for i in self.dependencies:
-                tar.add(i)
+                if i: tar.add(i)
 
     def initServiceVulns(self):
         for i in self.reqServices:
