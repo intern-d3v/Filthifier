@@ -1,4 +1,0 @@
-{
-"ssh remote login server":"systemctl  status sshd  | grep running",
-"SSH Root login disabled":"grep PermitRootLogin /etc/ssh/sshd_config | grep -i no"
-}

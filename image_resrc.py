@@ -81,7 +81,7 @@ class Image():  # a virtual machine image
         self.buildDir = "build/"
         if not os.path.exists(self.buildDir): os.mkdir(self.buildDir)
         self.initFile = self.buildDir + "initfile.bash"
-        self.booleanFile = self.buildDr + "scoreconfig.json"
+        self.booleanFile = self.buildDir + "scoreconfig.json"
         self.dependencies = []
         if "random" in self.engine.getReqVulnerability():
             self.initAllRandom()
