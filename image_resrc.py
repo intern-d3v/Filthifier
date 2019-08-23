@@ -79,7 +79,8 @@ class Image():  # a virtual machine image
         self.adminUsers = []
         self.mainUser = ""
         self.buildDir = "build/"
-        if not os.path.exists(self.buildDir): os.mkdir(self.buildDir)
+        if not os.path.exists(self.buildDir):
+            os.mkdir(self.buildDir)
         self.initFile = self.buildDir + "initfile.bash"
         self.booleanFile = self.buildDir + "scoreconfig.json"
         self.dependencies = []
@@ -163,7 +164,8 @@ Authorized Users:
     def initDependencies(self):
         with tarfile.open(self.buildDir + "dependencies.tar.gz", "w:gz") as tar:
             for i in self.dependencies:
-                if i: tar.add(i)
+                if i:
+                    tar.add(i)
 
     def initServiceVulns(self):
         for i in self.reqServices:

@@ -4,19 +4,92 @@ import os
 
 
 class ConfigEngine():
-    def __init__(self, mconf="config.json", pconf="prefs.json"):
-        self.masterConfigPath = mconf
-        self.prefConfigPath = pconf
-        self.vulnsDir = "vulnerabilities/"
-        self.srvDir="services/"
-        self.masterConfig = json.load(open(self.masterConfigPath))
-        self.prefConfig = json.load(open(self.prefConfigPath))
+    """
+    A class to read input from several configurations and format them when
+    accessor methods are called
+
+    Attributes
+    ----------
+    vulnsDir : str
+        The directory path where all vulnerability configurations are stored
+    srvDir : str
+        The directory path where all service configurations are stored
+    masterConfig : dict
+        The loaded json configuration of the 'config.json' file equivalent
+    prefConfig : dict
+        The loaded json configuration of the 'prefs.json' file equivalent
+    difficulty : str
+        The difficulty of the image. Valid options are the keys of 'validDifficulties' within masterConfig
+    reqVulns : list
+        The value of 'vulnerabilities' in prefConfig
+    numVulns : int
+        The number of vulnerabilities to be implemented on a random image
+    distro : str
+        The 'os' field read from prefConfig
+    userCount : int
+        The amount of users to be added to the image
+    adminCount : int
+        The amount of users in userCount which will be added as admins
+    vulnerabilities : dict (3d)
+        The dictionary containing all loaded vulnerabilities.
+        Formatted as vulnerabilities[category][difficiculty][name]
+
+    Methods
+    -------
+    getReqVulnerability()
+        Accessor method for reqVulns
+    getDistro()
+        Accessor method for distro
+    getAdminCount()
+        Accessor method for adminCount
+    getUserCount()
+        Accessor method for userCount
+    getNumVulns()
+        Accessor method for numVulns
+    getDifficulty()
+        Accessor method for difficulty
+    getPrefConfig()
+        Accessor method for prefConfig
+    getMasterConfig()
+        Accessor method for masterConfig
+    getDiffConfig()
+        Returns the dict value in masterConfig for difficulty
+    getReqServices()
+        Returns the list of services stored in 'services' key in prefConfig
+    getVulns(type,difficulty)
+        Returns dict vulnerabilities[type][difficulty] - another dict full of vuln names as keys and a list of config data as values
+    getVuln(type,difficulty,name)
+        Returns list vulnerabilities[type][difficulty] - better if you need exactly one vulnerability config and know the name
+    getVulnByName(self,name)
+        Finds the list within vulnerabilities in the third dimension that has a key of name
+    getValidDifficulties()
+        Returns dict at 'validDifficulties' key in masterConfig
+    getCatWeights()
+        Returns the 'categoryWeights' key in masterConfig for difficulty
+    getServiceWeight()
+        Returns only the 'services' value in getCatWeights()
+    getService(mame
+    """
+
+    def __init__(
+            self,
+            mconf="config.json",
+            pconf="prefs.json",
+            vDir="vulnerabilities/",
+            sDir="services/"):
+
+        masterConfigPath = mconf
+        prefConfigPath = pconf
+        self.vulnsDir = vDir
+        self.srvDir = sDir
+        self.masterConfig = json.load(open(masterConfigPath))
+        self.prefConfig = json.load(open(prefConfigPath))
         selection = self.prefConfig['config']['difficulty']
         if selection == "*":
             selection = random.choice(
                 self.masterConfig['config']['validDifficulties'].keys())
-        self.reqVulns = self.prefConfig['config']['vulnerabilities']
         self.difficulty = selection
+        self.reqVulns = self.prefConfig['config']['vulnerabilities']
         self.numVulns = random.randint(
             self.getDiffConfig()['minbound'], self.getDiffConfig()['maxbound'])
         self.distro = self.prefConfig['config']['os']
@@ -24,8 +97,8 @@ class ConfigEngine():
             self.getDiffConfig()['minUsers'],
             self.getDiffConfig()['maxUsers']
         )
-        self.adminPercent = self.getDiffConfig()['percentAdmins']
-        self.adminCount = self.userCount * self.adminPercent
+        adminPercent = self.getDiffConfig()['percentAdmins']
+        self.adminCount = int(round(self.userCount * adminPercent))
 
         self.vulnerabilities = {
             "userAudit": {
@@ -78,16 +151,17 @@ class ConfigEngine():
 
         }
 
-        for subdirectory in os.listdir(self.srvDir)+os.listdir(self.vulnsDir):
-            isService=False
-            prefix=self.vulnsDir
+        for subdirectory in os.listdir(
+                self.srvDir) + os.listdir(self.vulnsDir):
+            isService = False
+            prefix = self.vulnsDir
             if subdirectory in os.listdir(self.srvDir):
-                isService=True
-                prefix=self.srvDir
+                isService = True
+                prefix = self.srvDir
             info = json.loads(
                 open(prefix + subdirectory + "/info.json").read())
-            self.vulnerabilities[info["type"]
-                                 ][info["difficulty"]][info["name"]] = self.formatVuln(info["name"],isService)
+            self.vulnerabilities[info["type"]][info["difficulty"]
+                                               ][info["name"]] = self.formatVuln(info["name"], isService)
 
     def getReqVulnerability(self):
         return self.reqVulns
@@ -104,53 +178,8 @@ class ConfigEngine():
     def getNumVulns(self):
         return self.numVulns
 
-    def getCatWeights(self):
-        return self.getDiffConfig()['categoryWeights']
-
     def getDifficulty(self):
         return self.difficulty
-
-    def getDiffConfig(self):
-        return self.masterConfig['config']['validDifficulties'][self.getDifficulty(
-        )]
-
-    def getInfo(self, vuln_name, service=False):  # returns dictionary
-        if service:
-            prefix = self.srvDir
-        else:
-            prefix=self.vulnsDir
-        info = json.loads(
-            open(prefix + vuln_name + "/info.json").read())
-        return info
-
-    def getVulns(self, type, difficulty, name=""):
-        return self.vulnerabilities[type][difficulty]
-
-    def getVuln(self,cat,difficulty,name):
-        return self.vulnerabilities[cat][difficulty][name]
-
-    def getVulnByName(self,name):
-        for cat in self.vulnerabilities.values():
-            for diff in cat.values():
-                for key in diff.keys():
-                    if name == key: return diff[name]
-
-    def getService(self,name, difficulty="easy"):
-        return self.vulnerabilities['services'][difficulty][name]
-
-    def getVulnCountForCategory(self, category,diff):
-        percent = (
-            (1.0 *
-             self.getDiffConfig()['categoryWeights'][category] *
-             self.getNumVulns() *
-             self.getDiffConfig()['difficultyWeight'][diff]))
-        return int(round(percent))
-
-    def getValidDifficulties(self):
-        return self.masterConfig['config']['validDifficulties']
-
-    def getServiceWeight(self):
-        return self.getDiffConfig()['categoryWeights']['services']
 
     def getPrefConfig(self):
         return self.prefConfig
@@ -158,8 +187,54 @@ class ConfigEngine():
     def getMasterConfig(self):
         return self.masterConfig
 
+    def getDiffConfig(self):
+        return self.masterConfig['config']['validDifficulties'][self.getDifficulty(
+        )]
+
     def getReqServices(self):
         return self.prefConfig['config']['services']
+
+    def getVulns(self, type, difficulty, name=""):
+        return self.vulnerabilities[type][difficulty]
+
+    def getVuln(self, cat, difficulty, name):
+        return self.getVulns(type,difficulty)[name]
+
+    def getVulnByName(self, name):
+        for cat in self.vulnerabilities.values():
+            for diff in cat.values():
+                for key in diff.keys():
+                    if name == key:
+                        return diff[name]
+
+    def getValidDifficulties(self):
+        return self.masterConfig['config']['validDifficulties']
+
+    def getCatWeights(self):
+        return self.getDiffConfig()['categoryWeights']
+
+    def getServiceWeight(self):
+        return self.getCatWeights['services']
+
+    def getService(self, name, difficulty="easy"):
+        return self.vulnerabilities['services'][difficulty][name]
+
+    def getInfo(self, vuln_name, service=False):  # returns dictionary
+        if service:
+            prefix = self.srvDir
+        else:
+            prefix = self.vulnsDir
+        info = json.loads(
+            open(prefix + vuln_name + "/info.json").read())
+        return info
+
+    def getVulnCountForCategory(self, category, diff):
+        percent = (
+            (1.0 *
+             self.getDiffConfig()['categoryWeights'][category] *
+             self.getNumVulns() *
+             self.getDiffConfig()['difficultyWeight'][diff]))
+        return int(round(percent))
 
     def getRandVulns(self, type, diff, targetLen):
         vulns = []
@@ -197,21 +272,22 @@ class ConfigEngine():
         else:
             prefix = self.vulnsDir
         dep = prefix + name + "/dependencies.tar.gz"
-        if not os.path.exists(dep): dep = None
+        if not os.path.exists(dep):
+            dep = None
 
         return [
-                info['description'],
-                open(
-                    prefix +
-                    name +
-                    "/check_success.sh").read(),
-                open(
-                    prefix +
-                    name +
-                    "/init_vuln.sh").read(),
-                dep]
+            info['description'],
+            open(
+                prefix +
+                name +
+                "/check_success.sh").read(),
+            open(
+                prefix +
+                name +
+                "/init_vuln.sh").read(),
+            dep]
 
-    def getVulnCountForService(self, service, diff): #sum hardcore math
+    def getVulnCountForService(self, service, diff):  # sum hardcore math
         vulns = []
         serviceNum = len(self.getVulns(service, diff))
         totalNum = 0.0
@@ -231,4 +307,3 @@ class ConfigEngine():
               nVulns *
               diffWeight)))
         return int(round(percent))
-
